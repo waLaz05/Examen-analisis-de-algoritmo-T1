@@ -1,7 +1,8 @@
 # Cachay Vargas Joseph Ivan
-# Evaluacion T1 - Analisis de Algoritmos y Estrategias de Programacion
-# Semestre 2026-1
+# T1 - Analisis de Algoritmos
+# 2026-1
 
+# clase para guardar cada puesto de trabajo
 class PuestoDeTrabajo:
     def __init__(self, codigo, descripcion, areaSolicitante, plazasRequeridas, sueldo):
         self.codigo = codigo
@@ -10,119 +11,110 @@ class PuestoDeTrabajo:
         self.plazasRequeridas = plazasRequeridas
         self.sueldo = sueldo
 
+    # muestra los datos del puesto
     def mostrar(self):
-        print("  Codigo          :", self.codigo)
-        print("  Descripcion     :", self.descripcion)
-        print("  Area Solicitante:", self.areaSolicitante)
-        print("  Plazas Requeridas:", self.plazasRequeridas)
-        print("  Sueldo          : S/.", self.sueldo)
-        print("  -----------------------------------------")
+        print("  codigo:", self.codigo)
+        print("  descripcion:", self.descripcion)
+        print("  area solicitante:", self.areaSolicitante)
+        print("  plazas requeridas:", self.plazasRequeridas)
+        print("  sueldo: S/.", self.sueldo)
+        print("  ---")
 
 
-# Lista global de puestos
+# lista donde se guardan todos los puestos
 listaPuestos = []
 
 
-# -------------------------------------------------------
-# 1 - AgregaPuesto
-# -------------------------------------------------------
+# opcion 1: agregar un puesto nuevo
 def AgregaPuesto():
-    print("\n--- Agregar Puesto de Trabajo ---")
+    print("\n== Agregar Puesto ==")
 
-    # Validar codigo
+    # pido el codigo y valido que sea numero y mayor a 0
     while True:
-        entrada = input("Ingrese codigo (entero > 0): ")
+        entrada = input("codigo (numero entero > 0): ")
         if entrada.isdigit() and int(entrada) > 0:
             codigo = int(entrada)
             break
-        else:
-            print("  ERROR: El codigo debe ser un numero entero mayor a 0.")
+        print("tiene que ser un numero entero mayor a 0, intente de nuevo")
 
-    # Validar descripcion
+    # valido descripcion minimo 3 letras
     while True:
-        descripcion = input("Ingrese descripcion (minimo 3 letras): ")
+        descripcion = input("descripcion (min 3 letras): ")
         if len(descripcion) >= 3:
             break
-        else:
-            print("  ERROR: La descripcion debe tener al menos 3 letras.")
+        print("minimo 3 letras, intente de nuevo")
 
-    # Validar areaSolicitante
+    # valido area solicitante minimo 3 letras
     while True:
-        areaSolicitante = input("Ingrese area solicitante (minimo 3 letras): ")
+        areaSolicitante = input("area solicitante (min 3 letras): ")
         if len(areaSolicitante) >= 3:
             break
-        else:
-            print("  ERROR: El area solicitante debe tener al menos 3 letras.")
+        print("minimo 3 letras, intente de nuevo")
 
-    # Validar plazasRequeridas
+    # valido plazas requeridas
     while True:
-        entrada = input("Ingrese plazas requeridas (entero > 0): ")
+        entrada = input("plazas requeridas (numero entero > 0): ")
         if entrada.isdigit() and int(entrada) > 0:
             plazasRequeridas = int(entrada)
             break
-        else:
-            print("  ERROR: Las plazas requeridas deben ser un numero entero mayor a 0.")
+        print("tiene que ser un numero entero mayor a 0, intente de nuevo")
 
-    # Validar sueldo
+    # valido sueldo
     while True:
-        entrada = input("Ingrese sueldo (mayor a 0): ")
+        entrada = input("sueldo (mayor a 0): ")
         try:
             sueldo = float(entrada)
             if sueldo > 0:
                 break
             else:
-                print("  ERROR: El sueldo debe ser mayor a 0.")
+                print("el sueldo tiene que ser mayor a 0")
         except:
-            print("  ERROR: Ingrese un valor numerico valido.")
+            print("ingrese un numero valido")
 
-    # Busqueda lineal para validar duplicados
+    # busqueda lineal para ver si ya existe ese codigo, descripcion o area
     for i in range(len(listaPuestos)):
         if listaPuestos[i].codigo == codigo:
-            print("  ERROR: Ya existe un puesto con ese codigo.")
+            print("ya hay un puesto con ese codigo, no se puede agregar")
             return
         if listaPuestos[i].descripcion == descripcion:
-            print("  ERROR: Ya existe un puesto con esa descripcion.")
+            print("ya hay un puesto con esa descripcion, no se puede agregar")
             return
         if listaPuestos[i].areaSolicitante == areaSolicitante:
-            print("  ERROR: Ya existe un puesto con esa area solicitante.")
+            print("ya hay un puesto con esa area solicitante, no se puede agregar")
             return
 
-    nuevoPuesto = PuestoDeTrabajo(codigo, descripcion, areaSolicitante, plazasRequeridas, sueldo)
-    listaPuestos.append(nuevoPuesto)
-    print("  Puesto agregado correctamente.")
+    # si no hay duplicados lo agrego a la lista
+    nuevo = PuestoDeTrabajo(codigo, descripcion, areaSolicitante, plazasRequeridas, sueldo)
+    listaPuestos.append(nuevo)
+    print("puesto agregado!")
 
 
-# -------------------------------------------------------
-# 2 - MostrarTodo
-# -------------------------------------------------------
+# opcion 2: mostrar todos sin ordenar
 def MostrarTodo():
-    print("\n--- Lista de Puestos de Trabajo (sin ordenar) ---")
+    print("\n== Lista de Puestos (sin ordenar) ==")
     if len(listaPuestos) == 0:
-        print("  No hay puestos registrados.")
+        print("no hay puestos registrados todavia")
         return
     for i in range(len(listaPuestos)):
-        print("  [" + str(i + 1) + "]")
+        print("[" + str(i + 1) + "]")
         listaPuestos[i].mostrar()
 
 
-# -------------------------------------------------------
-# 3 - BorraPuesto
-# -------------------------------------------------------
+# opcion 3: borrar un puesto por codigo
 def BorraPuesto():
-    print("\n--- Borrar Puesto de Trabajo ---")
+    print("\n=,= Borrar Puesto =,=")
     if len(listaPuestos) == 0:
-        print("  No hay puestos registrados.")
+        print("no hay puestos para borrar")
         return
 
     while True:
-        entrada = input("Ingrese el codigo del puesto a eliminar: ")
+        entrada = input("codigo del puesto a eliminar: ")
         if entrada.isdigit() and int(entrada) > 0:
             codigoBuscar = int(entrada)
             break
-        else:
-            print("  ERROR: Ingrese un codigo valido (entero > 0).")
+        print("ingrese un codigo valido")
 
-    # Ordenar por codigo de mayor a menor - Metodo Burbuja
+    # ordeno por codigo de mayor a menor con burbuja
     n = len(listaPuestos)
     for i in range(n - 1):
         for j in range(n - 1 - i):
@@ -131,12 +123,12 @@ def BorraPuesto():
                 listaPuestos[j] = listaPuestos[j + 1]
                 listaPuestos[j + 1] = temp
 
-    # Busqueda lineal para encontrar y eliminar
+    # busqueda lineal para encontrar y eliminar el que coincida
     encontrado = False
     i = 0
     while i < len(listaPuestos):
         if listaPuestos[i].codigo == codigoBuscar:
-            print("  Puesto encontrado y eliminado:")
+            print("encontrado y eliminado :")
             listaPuestos[i].mostrar()
             listaPuestos.pop(i)
             encontrado = True
@@ -144,40 +136,41 @@ def BorraPuesto():
             i += 1
 
     if not encontrado:
-        print("  No se encontro ningun puesto con ese codigo.")
+        print("no se encontro ningun puesto con ese codigo :|")
 
 
-# -------------------------------------------------------
-# 4 - BuscaSueldo
-# -------------------------------------------------------
+# opcion 4: buscar puestos por sueldo
 def BuscaSueldo():
-    print("\n--- Buscar Puestos por Sueldo ---")
+    print("\n=.= Buscar por Sueldo =.=")
     if len(listaPuestos) == 0:
-        print("  No hay puestos registrados.")
+        print("no hay puestos registrados")
         return
 
-    # Ordenar por sueldo de mayor a menor - Metodo Insercion
+    # ordeno por sueldo de mayor a menor con insercion
     n = len(listaPuestos)
     for i in range(1, n):
         clave = listaPuestos[i]
         j = i - 1
+        # muevo los menores a la derecha
         while j >= 0 and listaPuestos[j].sueldo < clave.sueldo:
             listaPuestos[j + 1] = listaPuestos[j]
             j -= 1
         listaPuestos[j + 1] = clave
 
     while True:
-        entrada = input("Ingrese el sueldo a buscar: ")
+        entrada = input("sueldo a buscar : ")
         try:
             sueldoBuscar = float(entrada)
             if sueldoBuscar > 0:
                 break
             else:
-                print("  ERROR: El sueldo debe ser mayor a 0.")
+                print("el sueldo tiene que ser mayor a 0")
         except:
-            print("  ERROR: Ingrese un valor numerico valido.")
+            print("ingrese un número valido")
 
-    # Busqueda binaria para encontrar un indice con ese sueldo
+    # busqueda binaria (lista esta de mayor a menor)
+    # si el del medio es mayor al buscado -> busco a la derecha
+    # si el del medio es menor al buscado -> busco a la izquierda
     izq = 0
     der = len(listaPuestos) - 1
     indiceMedio = -1
@@ -188,50 +181,51 @@ def BuscaSueldo():
             indiceMedio = medio
             break
         elif listaPuestos[medio].sueldo > sueldoBuscar:
+            # el buscado es menor, esta mas a la derecha
             izq = medio + 1
         else:
+            # el buscado es mayor, esta mas a la izquierda
             der = medio - 1
 
     if indiceMedio == -1:
-        print("  No se encontro ningun puesto con ese sueldo.")
+        print("no se encontro ningun puesto con ese sueldo .-.")
         return
 
-    # Expandir hacia la izquierda y derecha para encontrar todos los coincidentes
+    # expando a la izquierda por si hay mas con el mismo sueldo
     inicio = indiceMedio
     while inicio > 0 and listaPuestos[inicio - 1].sueldo == sueldoBuscar:
         inicio -= 1
 
+    # expando a la derecha igual
     fin = indiceMedio
     while fin < len(listaPuestos) - 1 and listaPuestos[fin + 1].sueldo == sueldoBuscar:
         fin += 1
 
-    print("  Puestos encontrados con sueldo S/.", sueldoBuscar, ":")
+    print("puestos con sueldo S/.", sueldoBuscar, ":")
     for i in range(inicio, fin + 1):
         listaPuestos[i].mostrar()
 
 
-# -------------------------------------------------------
-# 5 - PuestosAContratar
-# -------------------------------------------------------
+# opcion 5: ver que puestos se pueden contratar con un presupuesto
 def PuestosAContratar():
-    print("\n--- Puestos a Contratar segun Presupuesto ---")
+    print("\n=.= Puestos a Contratar segun Presupuesto =.=")
     if len(listaPuestos) == 0:
-        print("  No hay puestos registrados.")
+        print("no hay puestos registrados :|")
         return
 
     while True:
-        entrada = input("Ingrese el monto total a invertir en salarios: ")
+        entrada = input("monto total a invertir en salarios: S/. ")
         try:
             montoTotal = float(entrada)
             if montoTotal > 0:
                 break
             else:
-                print("  ERROR: El monto debe ser mayor a 0.")
+                print("tiene que ser mayor a 0")
         except:
-            print("  ERROR: Ingrese un valor numerico valido.")
+            print("ingrese un numero valido :|")
 
-    # Calcular total requerido por puesto = plazasRequeridas * sueldo
-    # Ordenar de mayor a menor segun total requerido - Metodo Seleccion
+    # calculo total de cada puesto = plazas * sueldo
+    # ordeno de mayor a menor con seleccion segun ese total
     n = len(listaPuestos)
     for i in range(n - 1):
         indiceMayor = i
@@ -244,7 +238,8 @@ def PuestosAContratar():
         listaPuestos[i] = listaPuestos[indiceMayor]
         listaPuestos[indiceMayor] = temp
 
-    print("\n  Puestos que se pueden cubrir con S/.", montoTotal, ":")
+    # voy sumando los totales y muestro los que caben en el presupuesto
+    print("\npuestos que se pueden cubrir con S/.", montoTotal, ":")
     montoAcumulado = 0.0
     hayCubiertos = False
 
@@ -252,48 +247,44 @@ def PuestosAContratar():
         totalPuesto = listaPuestos[i].plazasRequeridas * listaPuestos[i].sueldo
         if montoAcumulado + totalPuesto <= montoTotal:
             montoAcumulado += totalPuesto
-            print("  Puesto cubierto (Total requerido: S/.", totalPuesto, "):")
+            print("  puesto cubierto (costo total: S/.", totalPuesto, "):")
             listaPuestos[i].mostrar()
             hayCubiertos = True
 
     if hayCubiertos:
-        print("  Monto total utilizado: S/.", montoAcumulado)
-        print("  Monto restante       : S/.", montoTotal - montoAcumulado)
+        print("monto usado: S/.", montoAcumulado)
+        print("monto sobrante: S/.", montoTotal - montoAcumulado)
     else:
-        print("  El presupuesto no alcanza para cubrir ningun puesto.")
+        print("el presupuesto no alcanza para ningun puesto °-°")
 
 
-# -------------------------------------------------------
-# Carga de 6 puestos de trabajo de ejemplo
-# -------------------------------------------------------
+# cargamo los 6 puestos de ejemplo al iniciar .- .
 def cargarDatosEjemplo():
     listaPuestos.append(PuestoDeTrabajo(101, "Desarrollador Web", "Tecnologia", 3, 3500.0))
     listaPuestos.append(PuestoDeTrabajo(205, "Analista de Datos", "Inteligencia de Negocios", 2, 4200.0))
-    listaPuestos.append(PuestoDeTrabajo(310, "Diseñador Grafico", "Marketing", 1, 2800.0))
+    listaPuestos.append(PuestoDeTrabajo(310, "Disenador Grafico", "Marketing", 1, 2800.0))
     listaPuestos.append(PuestoDeTrabajo(415, "Contador Senior", "Finanzas", 2, 5000.0))
     listaPuestos.append(PuestoDeTrabajo(520, "Asistente Administrativo", "Administracion", 4, 1800.0))
     listaPuestos.append(PuestoDeTrabajo(625, "Tecnico de Soporte", "Sistemas", 3, 2500.0))
 
 
-# -------------------------------------------------------
-# Menu principal
-# -------------------------------------------------------
+# menu principal que se repite hasta que el usuario salga
 def menu():
     cargarDatosEjemplo()
     opcion = ""
     while opcion != "6":
-        print("\n========================================")
-        print("   SISTEMA DE PUESTOS DE TRABAJO")
-        print("   Cachay Vargas Joseph Ivan")
-        print("========================================")
+        print("\n................................")
+        print("  PUESTOS DE TRABAJO")
+        print("  Cachay Vargas Joseph Ivan")
+        print(".................................")
         print("  1. AgregaPuesto()")
         print("  2. MostrarTodo()")
         print("  3. BorraPuesto()")
         print("  4. BuscaSueldo()")
         print("  5. PuestosAContratar()")
         print("  6. Salir")
-        print("========================================")
-        opcion = input("Seleccione una opcion: ")
+        print(".....................................")
+        opcion = input("opcion: ")
 
         if opcion == "1":
             AgregaPuesto()
@@ -306,9 +297,9 @@ def menu():
         elif opcion == "5":
             PuestosAContratar()
         elif opcion == "6":
-            print("\n  Hasta luego, Joseph!")
+            print("saliendo...")
         else:
-            print("  Opcion invalida. Intente de nuevo.")
+            print("opcion invalida, intente de nuevo")
 
 
 menu()
