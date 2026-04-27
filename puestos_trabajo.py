@@ -1,7 +1,6 @@
 # Cachay Vargas Joseph Ivan
-# T1 - Analisis de Algoritmos
-# 2026-1
-
+# T1 Analisis de Algoritmos
+# 2026-1 abril :0
 # clase para guardar cada puesto de trabajo
 class PuestoDeTrabajo:
     def __init__(self, codigo, descripcion, areaSolicitante, plazasRequeridas, sueldo):
@@ -10,7 +9,7 @@ class PuestoDeTrabajo:
         self.areaSolicitante = areaSolicitante
         self.plazasRequeridas = plazasRequeridas
         self.sueldo = sueldo
-
+        
     # muestra los datos del puesto
     def mostrar(self):
         print("  codigo:", self.codigo)
@@ -59,7 +58,7 @@ def AgregaPuesto():
             break
         print("tiene que ser un numero entero mayor a 0, intente de nuevo")
 
-    # valido sueldo
+    # valido sueldo,
     while True:
         entrada = input("sueldo (mayor a 0): ")
         try:
